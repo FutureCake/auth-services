@@ -1,39 +1,74 @@
 {
     "env": {
         "doc": "The application environment.",
-        "format": [
-            "production",
-            "development",
-            "test"
-        ],
+        "format": ["production", "development", "test"],
         "default": "development",
         "env": "NODE_ENV"
     },
-    "ip": {
-        "doc": "The IP address to bind.",
-        "format": "ipaddress",
-        "default": "127.0.0.1",
-        "env": "IP_ADDRESS"
+    "server": {
+        "port": {
+            "doc": "server host name / ip",
+            "format": "Number",
+            "default": 3000,
+            "env": "PORT",
+            "arg": "port"
+        },
+        "host": {
+            "doc": "server host name / ip",
+            "format": "*",
+            "default": "localhost",
+            "env": "HOST",
+            "arg": "host"
+        },
+        "options": {
+            "key": {},
+            "cert": {}
+        }
     },
-    "port": {
-        "doc": "The port to bind.",
-        "format": "port",
-        "default": 3000,
-        "env": "PORT",
-        "arg": "port"
+    "email": {
+        "host": {},
+        "port": {},
+        "user": {},
+        "pass": {}
     },
     "mysql": {
         "host": {
-            "doc": "Database host name/IP",
+            "doc": "Database host name / ip",
             "format": "*",
-            "default": "server1.dev.test",
+            "default": "localhost",
             "env": "MYSQL_HOST",
-            "arg": "mysqlHost"
+            "arg": "mysql_host"
         },
-        "name": {
+        "port": {
+            "doc": "Database port",
+            "format": "*",
+            "default": 3036,
+            "env": "MYSQL_PORT",
+            "arg": "mysql_port"
+        },
+        "user": {
+            "doc": "Database port",
+            "format": "String",
+            "default": "root",
+            "env": "MYSQL_USER",
+            "arg": "mysql_user"
+        },
+        "password": {
+            "doc": "Database port",
+            "format": "String",
+            "default": "root",
+            "env": "MYSQL_PASS",
+            "arg": "mysql_pass"
+        },
+        "database": {
             "doc": "Database name",
             "format": "String",
-            "default": "users"
+            "default": "users",
+            "env": "MYSQL_DB",
+            "arg": "mysql_db"
+        },
+        "socketPath": {
+            "default": "/tmp/mysql.sock"
         }
     }
 }
