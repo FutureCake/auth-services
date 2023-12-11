@@ -11,16 +11,16 @@
                 "doc": "jwt private token keep in .env file",
                 "format": "*",
                 "default": "KEEP TOKEN PRIVATE IN .ENV FILE",
-                "env": "JWT_PRIVATE_TOKEN",
-                "arg": "jwt_private_token",
+                "env": "JWT_PRIVATE_KEY",
+                "arg": "jwt_private_key",
                 "sensitive": true
             },
             "public": {
                 "doc": "jwt public token best to keep in .env file",
                 "format": "*",
                 "default": "BEST TO KEEP TOKEN PRIVATE IN .ENV FILE",
-                "env": "JWT_PUBLIC_TOKEN",
-                "arg": "jwt_public_token",
+                "env": "JWT_PUBLIC_KEY",
+                "arg": "jwt_public_key",
                 "sensitive": true
             }
         }
@@ -79,14 +79,14 @@
             "arg": "mysql_port"
         },
         "user": {
-            "doc": "Database port",
+            "doc": "Database user",
             "format": "String",
             "default": "root",
             "env": "MYSQL_USER",
             "arg": "mysql_user"
         },
         "password": {
-            "doc": "Database port",
+            "doc": "Database pass",
             "format": "String",
             "default": "root",
             "env": "MYSQL_PASS",
