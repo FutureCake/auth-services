@@ -1,21 +1,31 @@
 import { NextFunction, Request, Response } from 'express';
+import emailConfirmCode from '../utils/email.utils';
 
-async function login(req: Request, res: Response, next: NextFunction): Promise<void> {
-    
+interface RequestData {
+    email: string;
 }
 
-async function register(req: Request, res: Response, next: NextFunction): Promise<void> {
-    
+async function login(req: Request<any, any, RequestData>, res: Response, next: NextFunction): Promise<void> {
+
+    const { email } = req.body;
+
+    emailConfirmCode(email, 12345);
 }
 
-async function quick(req: Request, res: Response, next: NextFunction): Promise<void> {
-    
+async function register(req: Request<any, any, RequestData>, res: Response, next: NextFunction): Promise<void> {
+
+    const { email } = req.body;
+
+    emailConfirmCode(email, 12345);
 }
 
-async function trail(req: Request, res: Response, next: NextFunction): Promise<void> {
-    
+async function quick(req: Request<any, any, RequestData>, res: Response, next: NextFunction): Promise<void> {
+
+    const { email } = req.body;
+
+    emailConfirmCode(email, 12345);
 }
 
 export {
-    login, quick, register, trail
+    login, quick, register
 };
