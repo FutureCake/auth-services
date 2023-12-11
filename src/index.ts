@@ -7,8 +7,6 @@ const service = express();
 configure_defaults(service);
 apply_middlewares(service);
 
-console.log(config.get('authentication.jwtToken.private'))
-
 const server = (config.get('env') === "production") ? https.createServer({}, service) : service;
 
 async function launch_service(): Promise<void> {

@@ -58,10 +58,34 @@
         }
     },
     "email": {
-        "host": {},
-        "port": {},
-        "user": {},
-        "pass": {}
+        "host": {
+            "doc": "email host address",
+                "format": "*",
+                "default": "smtp.localhost.com",
+                "env": "EMAIL_HOST",
+                "arg": "email_host"
+        },
+        "port": {
+            "doc": "email host port",
+                "format": "Number",
+                "default": 587,
+                "env": "EMAIL_PORT",
+                "arg": "email_port"
+        },
+        "user": {
+            "doc": "email server user id",
+                "format": "*",
+                "default": "",
+                "env": "EMAIL_USER",
+                "arg": "email_user"
+        },
+        "pass": {
+            "doc": "email user password",
+                "format": "*",
+                "default": "",
+                "env": "EMAIL_PASS",
+                "arg": "email_pass"
+        }
     },
     "mysql": {
         "host": {
