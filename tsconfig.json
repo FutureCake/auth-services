@@ -15,7 +15,6 @@
         "noImplicitAny": true,
         "typeRoots": ["@types"]
     },
-    "hooks": [ "copy-files" ],
     "include": [
         "src/**/*"
     ],
