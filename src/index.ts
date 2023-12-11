@@ -9,6 +9,9 @@ apply_middlewares(service);
 
 const server = (config.get('env') === "production") ? https.createServer({}, service) : service;
 
+
+console.log(config.getEnv());
+
 async function launch_service(): Promise<void> {
 
     const ip = config.get('server.host');

@@ -5,6 +5,26 @@
         "default": "development",
         "env": "NODE_ENV"
     },
+    "authentication": {
+        "jwtToken": {
+            "private": {
+                "doc": "jwt private token keep in .env file",
+                "format": "*",
+                "default": "KEEP TOKEN PRIVATE IN .ENV FILE",
+                "env": "JWT_PRIVATE_TOKEN",
+                "arg": "jwt_private_token",
+                "sensitive": true
+            },
+            "public": {
+                "doc": "jwt public token best to keep in .env file",
+                "format": "*",
+                "default": "BEST TO KEEP TOKEN PRIVATE IN .ENV FILE",
+                "env": "JWT_PUBLIC_TOKEN",
+                "arg": "jwt_public_token",
+                "sensitive": true
+            }
+        }
+    },
     "server": {
         "port": {
             "doc": "server host name / ip",
@@ -21,8 +41,20 @@
             "arg": "host"
         },
         "options": {
-            "key": {},
-            "cert": {}
+            "key": {
+                "doc": "certificate key",
+                "format": "*",
+                "default": "some/file/path",
+                "env": "SSL_KEY",
+                "arg": "ssl_key"
+            },
+            "cert": {
+                "doc": "ssl certificate",
+                "format": "*",
+                "default": "some/file/path",
+                "env": "SSL_CERT",
+                "arg": "ssl_cert"
+            }
         }
     },
     "email": {
