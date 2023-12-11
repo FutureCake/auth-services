@@ -3,6 +3,7 @@
         "module": "CommonJS",
         "target": "ES6",
         "moduleResolution": "node",
+        "resolveJsonModule": true,
         "baseUrl": ".",
         "outDir": "dist",
         "esModuleInterop": true,
@@ -14,6 +15,7 @@
         "noImplicitAny": true,
         "typeRoots": ["@types"]
     },
+    "hooks": [ "copy-files" ],
     "include": [
         "src/**/*"
     ],
