@@ -1,6 +1,7 @@
 import express from "express";
 import * as https from "https";
 import config from "./configs/configurator";
+import connectMYSQL from "./utils/db.utils";
 import { apply_middlewares, configure_defaults } from "./utils/express.utils";
 
 const service = express();
@@ -13,6 +14,8 @@ async function launch_service(): Promise<void> {
 
     const ip = config.get('server.host');
     const port = config.get('server.port');
+
+    connectMYSQL();
 
     server.listen(port, ip, () => {
         console.log(`launched server @ ${ip}:${port}`);
