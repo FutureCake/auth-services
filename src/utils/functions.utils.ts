@@ -1,10 +1,12 @@
 import formatsPlugin from "ajv-formats";
+import { Router } from "express";
 import { Validator } from "express-json-validator-middleware";
 import { randomInt } from "node:crypto";
 
-const validator = new Validator({strict: true});
-formatsPlugin(validator.ajv);
-const validate = validator.validate;
+interface RouterDefinition {
+    path: string;
+    router: Router;
+}
 
 interface CodeOptions {
     code?: number | string;
@@ -12,6 +14,10 @@ interface CodeOptions {
     length?: number;
     alphabet?: string;
 } 
+
+const validator = new Validator({strict: true});
+formatsPlugin(validator.ajv);
+const validate = validator.validate;
 
 function generateCode(codeOptions?: CodeOptions): string {
     const options: CodeOptions = {
@@ -46,6 +52,13 @@ function generateFromAlphabet(alphabet: string, length: number): string {
         .join('')
 }
 
-export { generateCode, validate };
-export type { CodeOptions };
+function createRouter(path:string, router: Router): RouterDefinition {
+    return {
+        path, 
+        router
+    }
+}
+
+export { createRouter, generateCode, validate };
+export type { CodeOptions, RouterDefinition };
 
