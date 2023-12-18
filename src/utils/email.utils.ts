@@ -3,16 +3,21 @@ import SMTPTransport from "nodemailer/lib/smtp-transport";
 import config from "../configs/configurator";
 import { CodeOptions, generateCode } from "./functions.utils";
 
+
+type emailErrorCallback = (err: Error | null, info: SMTPTransport.SentMessageInfo) => void;
+
 type ConfirmationCodeOptions = CodeOptions & {
-    template?: string;
+    template: string;
+    subject: string;
+    sender: string;
 }
 
-let email: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
+let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
 
 function connectEmail() {
-    if (!email) {
+    if (!transporter) {
         try {
-            email = nodemailer.createTransport({
+            transporter = nodemailer.createTransport({
                 host: config.get("email.host"),
                 port: config.get("email.port"),
                 auth: {
@@ -26,32 +31,37 @@ function connectEmail() {
         }
     }
 
-    return email;
+    return transporter;
 };
 
-async function emailConfirmCode(recipient: string, options?: ConfirmationCodeOptions): Promise<void> {
+async function emailConfirmCode(recipient: string, options: ConfirmationCodeOptions, errorCallback?: emailErrorCallback): Promise<void> {
 
-    let code = options?.code;
+    let code = options.code;
 
-    if (!options?.code) {
+    if (!options.code) {
         code = generateCode(options);
     }
 
-    email.sendMail({
+    transporter.sendMail({
         to: recipient,
-        from: MYCA_MAIL,
-        subject: CONFIRMATION_CODE_SUBJ,
-        html: `<div style="width: 200px; height: 200px; background-color: aquamarine; color: black;">${code}</div>`
+        from: options.sender,
+        subject: options.subject,
+        html: renderTemplate(options.template, {code: code as string}),
     }, (err, inf) => {
-        if (err || inf.rejected.length > 0) {
-            on_fail?.({
-                msg: `failed to send confirmation mail to ${recipient}`,
-                error: err,
-                information: inf
-            });
-        }
+        if(errorCallback) errorCallback(err, inf);
     });
+}
 
+function renderTemplate(template: string, data?: { [key: string]: string; }): string {
+    if (!data) return template;
+
+    for (const key in data) {
+        const value = data[key];
+
+        template = template.replaceAll(`{{${key}}}`, value);
+    }
+
+    return  template;
 }
 
 
