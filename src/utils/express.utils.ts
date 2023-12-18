@@ -2,16 +2,21 @@ import cors from "cors";
 import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
+import emailRouter from "../routes/email.auth.route";
 
-function apply_middlewares(app: Application): void {
+function applyMiddlewares(app: Application): void {
     app.use(cors());
     app.use(helmet());
     app.use(morgan('tiny'));
     app.use(express.json());
 }
 
-function configure_defaults(app: Application): void {
+function configureDefaults(app: Application): void {
     app.disable('x-powered-by');
+}
+
+function setRoutes(app: Application) {
+    app.use(emailRouter.path, emailRouter.router);
 }
 
 // function set_default_error_responses(app: Application) {
@@ -21,5 +26,5 @@ function configure_defaults(app: Application): void {
 //     app.use(handle_invalid_path);
 // }
 
-export { apply_middlewares, configure_defaults };
+export { applyMiddlewares, configureDefaults, setRoutes };
 
