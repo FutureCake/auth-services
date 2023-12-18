@@ -67,6 +67,6 @@ function renderTemplate(template: string, data?: { [key: string]: string; }): st
 
 
 export default connectEmail;
-export { emailConfirmCode };
-export type { ConfirmationCodeOptions };
+export { emailConfirmCode, renderTemplate };
+export type { ConfirmationCodeOptions, emailErrorCallback };
 
