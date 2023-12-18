@@ -1,7 +1,7 @@
 import express from "express";
 import { AllowedSchema } from "express-json-validator-middleware";
 import * as emailAuthController from "../controllers/email.auth.controller";
-import { validate } from "../utils/functions.utils";
+import { createRouter, validate } from "../utils/functions.utils";
 
 const schema: AllowedSchema = {
     type: "object",
@@ -23,4 +23,6 @@ route.post('/login',  emailAuthController.login);
 route.post('/register', emailAuthController.register);
 route.post('/quick-access', emailAuthController.quick);
 
-export default route;
+const emailRouter = createRouter('/email', route);
+
+export default emailRouter;
