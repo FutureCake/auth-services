@@ -4,9 +4,9 @@ import config from "../configs/configurator";
 let db: mysql.Pool;
 
 function connectMYSQL() {
-    if(db === undefined || db === null) {
+    if (db === undefined || db === null) {
 
-        const socketPath: PoolOptions = config.get("env") != "production" ? { socketPath: config.get("mysql.socketPath")} : {};
+        const socketPath: PoolOptions = config.get("env") != "production" ? { socketPath: config.get("mysql.socketPath") } : {};
 
         try {
             db = mysql.createPool({
@@ -16,7 +16,7 @@ function connectMYSQL() {
                 password: config.get("mysql.password"),
                 database: config.get("mysql.database"),
                 ...socketPath,
-            });    
+            });
         } catch (error) {
             console.error("failed to connect to db ", error);
             process.exitCode = 2;
