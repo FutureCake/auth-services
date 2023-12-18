@@ -131,3 +131,7 @@ dist
 
 #vscode 
 .vscode
+
+#vscode api test plugin
+*.rest
+*.http
