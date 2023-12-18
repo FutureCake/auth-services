@@ -36,7 +36,7 @@
         "host": {
             "doc": "server host name / ip",
             "format": "*",
-            "default": "localhost",
+            "default": "127.0.0.1",
             "env": "HOST",
             "arg": "host"
         },
