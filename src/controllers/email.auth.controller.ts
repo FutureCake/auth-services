@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { loginService } from '../services/email.auth.service';
+import { emailLoginService } from '../services/email.auth.service';
 
 interface RequestData {
     email: string;
@@ -7,10 +7,12 @@ interface RequestData {
 
 async function login(req: Request<any, any, RequestData>, res: Response, next: NextFunction): Promise<void> {
 
-    const { email } = req.body;
-    loginService(email);
-
-    // emailConfirmCode(email, 12345);
+    try {
+        // CHECK: see if we need to do additional things here.
+        res.json(await emailLoginService(req.body.email));
+    } catch (error) {
+        next(error);
+    }
 }
 
 async function register(req: Request<any, any, RequestData>, res: Response, next: NextFunction): Promise<void> {
