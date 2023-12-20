@@ -12,6 +12,11 @@ type ConfirmationCodeOptions = CodeOptions & {
     sender: string;
 }
 
+interface CodeReturn {
+    code: string;
+    email: string;
+}
+
 let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
 
 function connectEmail() {
@@ -34,22 +39,37 @@ function connectEmail() {
     return transporter;
 };
 
-async function emailConfirmCode(recipient: string, options: ConfirmationCodeOptions, errorCallback?: emailErrorCallback): Promise<void> {
+async function emailConfirmCode(recipient: string, options: ConfirmationCodeOptions, errorCallback?: emailErrorCallback): Promise<CodeReturn> {
 
     let code = options.code;
 
-    if (!options.code) {
+    if (options.code === undefined || options.code === null) {
         code = generateCode(options);
     }
 
+    console.log("generated code");
+
+    // const asyncMail = async () => {
+    connectEmail();
     transporter.sendMail({
         to: recipient,
         from: options.sender,
         subject: options.subject,
-        html: renderTemplate(options.template, {code: code as string}),
+        html: renderTemplate(options.template, { code: code as string }),
     }, (err, inf) => {
-        if(errorCallback) errorCallback(err, inf);
+        if (errorCallback) errorCallback(err, inf);
     });
+    // };
+
+    // asyncMail();
+
+
+    console.log("send email")
+
+    return {
+        code: code as string,
+        email: recipient
+    }
 }
 
 function renderTemplate(template: string, data?: { [key: string]: string; }): string {
@@ -61,12 +81,12 @@ function renderTemplate(template: string, data?: { [key: string]: string; }): st
         template = template.replaceAll(`{{${key}}}`, value);
     }
 
-    return  template;
+    return template;
 }
 
 
 
 export default connectEmail;
 export { emailConfirmCode, renderTemplate };
-export type { ConfirmationCodeOptions, emailErrorCallback };
+export type { CodeReturn, ConfirmationCodeOptions, emailErrorCallback };
 

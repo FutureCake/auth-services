@@ -15,14 +15,17 @@ interface UserResult extends RowDataPacket {
 
 async function emailLoginService(email: string): Promise<ServiceResult<string>> {
     
+
     const db = connectMYSQL();
-    const [rows] = await db.query<UserResult[]>("SELECT * FROM users WHERE email = ?", [email]);
+    const conn = await db.getConnection();
+
+    const [rows] = await conn.query<UserResult[]>("SELECT * FROM users WHERE email = ?", [email]);
     
     if(rows.length === 0) {
         throw new ServiceError("user does not exist");
     }
 
-    emailConfirmCode(email, {
+    const code = await emailConfirmCode(email, {
         type: "numeric",
         length: 5,
         template: "{{code}}",
@@ -31,6 +34,10 @@ async function emailLoginService(email: string): Promise<ServiceResult<string>> 
     }, (err, inf) => {
         throw new ServiceError("failed to send confirmation code email");
     });
+
+    conn.execute("UPDATE users SET `access-code` = ? WHERE email = ?", [code.code, code.email]);
+
+    db.releaseConnection(conn);
 
     return {
         message: "send confirmation email",
