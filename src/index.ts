@@ -2,12 +2,14 @@ import express from "express";
 import * as https from "https";
 import config from "./configs/configurator";
 import connectMYSQL from "./utils/db.utils";
-import { applyMiddlewares, configureDefaults, setRoutes } from "./utils/express.utils";
+import { applyMiddlewares, configureDefaults, setErrorHandlers, setRoutes } from "./utils/express.utils";
 
 const service = express();
+
 configureDefaults(service);
 applyMiddlewares(service);
 setRoutes(service);
+setErrorHandlers(service);
 
 const server = (config.get('env') === "production") ? https.createServer({}, service) : service;
 

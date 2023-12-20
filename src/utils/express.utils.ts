@@ -3,6 +3,7 @@ import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import emailRouter from "../routes/email.auth.route";
+import { handleInvalidPath, handleSchemaError, handleServiceError } from "./error.utils";
 
 function applyMiddlewares(app: Application): void {
     app.use(cors());
@@ -19,12 +20,11 @@ function setRoutes(app: Application) {
     app.use(emailRouter.path, emailRouter.router);
 }
 
-// function set_default_error_responses(app: Application) {
-//     app.use(handle_auth_error);
-//     app.use(handle_schema_validation_error);
-//     app.use(handle_generic_error);
-//     app.use(handle_invalid_path);
-// }
+function setErrorHandlers(app: Application) {
+    app.use(handleSchemaError);
+    app.use(handleServiceError);
+    app.use(handleInvalidPath);    
+}
 
-export { applyMiddlewares, configureDefaults, setRoutes };
+export { applyMiddlewares, configureDefaults, setErrorHandlers, setRoutes };
 
