@@ -3,6 +3,7 @@ import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import emailRouter from "../routes/email.auth.route";
+import codeValidatorRoute from "../routes/validate.code.route";
 import { handleInvalidPath, handleSchemaError, handleServiceError } from "./error.utils";
 
 function applyMiddlewares(app: Application): void {
@@ -18,6 +19,7 @@ function configureDefaults(app: Application): void {
 
 function setRoutes(app: Application) {
     app.use(emailRouter.path, emailRouter.router);
+    app.use(codeValidatorRoute.path, codeValidatorRoute.router);
 }
 
 function setErrorHandlers(app: Application) {
