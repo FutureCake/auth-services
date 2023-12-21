@@ -14,7 +14,6 @@ interface UserResult extends RowDataPacket {
 }
 
 async function emailLoginService(email: string): Promise<ServiceResult<string>> {
-    
 
     const db = connectMYSQL();
     const conn = await db.getConnection();
@@ -46,3 +45,5 @@ async function emailLoginService(email: string): Promise<ServiceResult<string>> 
 }
 
 export { emailLoginService };
+export type { ServiceResult };
+
