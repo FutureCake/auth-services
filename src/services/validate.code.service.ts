@@ -18,7 +18,7 @@ async function codeValidatorService(email: string, code: string): Promise<Servic
         if (rows[0]['access-code'] === code) {
 
             const jwt = GenerateJWT(
-                getDefaultJWTSignParams(false),
+                getDefaultJWTSignParams("authorization"),
                 {user: rows[0].id}
             )
 

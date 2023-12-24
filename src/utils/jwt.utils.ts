@@ -4,15 +4,15 @@ import config from "../configs/configurator";
 
 type JWTData = { [key: string]: any };
 
-function getDefaultJWTSignParams(isRefresh: boolean): SignOptions {
+function getDefaultJWTSignParams(type: "refresh" | "authorization"): SignOptions {
     return {
         algorithm: "RS256",
-        expiresIn: (isRefresh) ? "365d" : "24h",
+        expiresIn: (type === "refresh") ? "365d" : "24h",
         issuer: "api.myca.com",
         jwtid: uuid(),
         mutatePayload: false,
         audience: "myca.mobile",
-        subject: "refresh"
+        subject: type
     }
 }
 
