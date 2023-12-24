@@ -47,9 +47,6 @@ async function emailConfirmCode(recipient: string, options: ConfirmationCodeOpti
         code = generateCode(options);
     }
 
-    console.log("generated code");
-
-    // const asyncMail = async () => {
     connectEmail();
     transporter.sendMail({
         to: recipient,
@@ -59,12 +56,6 @@ async function emailConfirmCode(recipient: string, options: ConfirmationCodeOpti
     }, (err, inf) => {
         if (errorCallback) errorCallback(err, inf);
     });
-    // };
-
-    // asyncMail();
-
-
-    console.log("send email")
 
     return {
         code: code as string,
