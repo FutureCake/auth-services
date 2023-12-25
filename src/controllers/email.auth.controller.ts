@@ -9,7 +9,7 @@ async function login(req: Request<any, any, RequestData>, res: Response, next: N
 
     try {
         // CHECK: see if we need to do additional things here.
-        res.json(await emailLoginService(req.body.email));
+        res.status(200).json(await emailLoginService(req.body.email));
     } catch (error) {
         next(error);
     }

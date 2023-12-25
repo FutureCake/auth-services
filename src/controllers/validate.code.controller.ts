@@ -6,11 +6,11 @@ interface RequestData {
     code: string;
 }
 
-async function validateCodeController(req: Request<any, any, RequestData>, res: Response, next: NextFunction) {
+async function validateCodeController(req: Request<any, any, RequestData>, res: Response, next: NextFunction): Promise<void> {
     const {code, email } = req.body;
 
     try {
-        res.json(await codeValidatorService(email, code));
+        res.status(200).json(await codeValidatorService(email, code));
     } catch (error) {
         next(error);
     }
