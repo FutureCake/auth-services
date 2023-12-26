@@ -19,7 +19,7 @@ interface CodeReturn {
 
 let transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo>;
 
-function connectEmail() {
+function connectEmail(options?: SMTPTransport.Options) {
     if (!transporter) {
         try {
             transporter = nodemailer.createTransport({
@@ -28,7 +28,8 @@ function connectEmail() {
                 auth: {
                     user: config.get("email.user"),
                     pass: config.get("email.pass"),
-                }
+                },
+                ...options
             });
         } catch (error) {
             console.log("failed to create email transport service ", error);

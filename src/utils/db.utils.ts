@@ -3,7 +3,7 @@ import config from "../configs/configurator";
 
 let db: mysql.Pool;
 
-function connectMYSQL() {
+function connectMYSQL(options?: PoolOptions) {
     if (db === undefined || db === null) {
 
         const socketPath: PoolOptions = config.get("env") != "production" ? { socketPath: config.get("mysql.socketPath") } : {};
@@ -16,6 +16,7 @@ function connectMYSQL() {
                 password: config.get("mysql.password"),
                 database: config.get("mysql.database"),
                 ...socketPath,
+                ...options
             });
         } catch (error) {
             console.error("failed to connect to db ", error);
