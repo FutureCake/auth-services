@@ -9,7 +9,7 @@
         "jwtToken": {
             "private": {
                 "doc": "jwt private token keep in .env file",
-                "format": "*",
+                "format": "String",
                 "default": "KEEP TOKEN PRIVATE IN .ENV FILE",
                 "env": "JWT_PRIVATE_KEY",
                 "arg": "jwt_private_key",
@@ -17,7 +17,7 @@
             },
             "public": {
                 "doc": "jwt public token best to keep in .env file",
-                "format": "*",
+                "format": "String",
                 "default": "BEST TO KEEP TOKEN PRIVATE IN .ENV FILE",
                 "env": "JWT_PUBLIC_KEY",
                 "arg": "jwt_public_key",
@@ -35,7 +35,7 @@
         },
         "host": {
             "doc": "server host name / ip",
-            "format": "*",
+            "format": "String",
             "default": "127.0.0.1",
             "env": "HOST",
             "arg": "host"
@@ -43,14 +43,14 @@
         "options": {
             "key": {
                 "doc": "certificate key",
-                "format": "*",
+                "format": "String",
                 "default": "some/file/path",
                 "env": "SSL_KEY",
                 "arg": "ssl_key"
             },
             "cert": {
                 "doc": "ssl certificate",
-                "format": "*",
+                "format": "String",
                 "default": "some/file/path",
                 "env": "SSL_CERT",
                 "arg": "ssl_cert"
@@ -60,7 +60,7 @@
     "email": {
         "host": {
             "doc": "email host address",
-                "format": "*",
+                "format": "String",
                 "default": "smtp.localhost.com",
                 "env": "EMAIL_HOST",
                 "arg": "email_host"
@@ -74,14 +74,14 @@
         },
         "user": {
             "doc": "email server user id",
-                "format": "*",
+                "format": "String",
                 "default": "",
                 "env": "EMAIL_USER",
                 "arg": "email_user"
         },
         "pass": {
             "doc": "email user password",
-                "format": "*",
+                "format": "String",
                 "default": "",
                 "env": "EMAIL_PASS",
                 "arg": "email_pass"
@@ -90,14 +90,14 @@
     "mysql": {
         "host": {
             "doc": "Database host name / ip",
-            "format": "*",
+            "format": "String",
             "default": "localhost",
             "env": "MYSQL_HOST",
             "arg": "mysql_host"
         },
         "port": {
             "doc": "Database port",
-            "format": "*",
+            "format": "Number",
             "default": 3036,
             "env": "MYSQL_PORT",
             "arg": "mysql_port"
@@ -124,7 +124,11 @@
             "arg": "mysql_db"
         },
         "socketPath": {
-            "default": "/tmp/mysql.sock"
+            "doc": "optional mysql socket path for local testing",
+            "format": "String",
+            "default": "/tmp/mysql.sock",
+            "env": "MYSQL_SOCK_PATH",
+            "arg": "mysql_sock_path"
         }
     }
 }
