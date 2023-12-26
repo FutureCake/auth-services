@@ -3,6 +3,7 @@ import express, { Application } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
 import emailRouter from "../routes/email.auth.route";
+import publicJWTKeyRoute from "../routes/public.jwt.key.route";
 import codeValidatorRoute from "../routes/validate.code.route";
 import { handleInvalidPath, handleSchemaError, handleServiceError } from "./error.utils";
 
@@ -20,6 +21,7 @@ function configureDefaults(app: Application): void {
 function setRoutes(app: Application) {
     app.use(emailRouter.path, emailRouter.router);
     app.use(codeValidatorRoute.path, codeValidatorRoute.router);
+    app.use(publicJWTKeyRoute.path, publicJWTKeyRoute.router);
 }
 
 function setErrorHandlers(app: Application) {
