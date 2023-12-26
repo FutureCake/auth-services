@@ -7,33 +7,31 @@ import { applyMiddlewares, configureDefaults, setErrorHandlers, setRoutes } from
 
 type Express = typeof express.application;
 
-interface AuthorizeServiceOptions {
-    
-}
-
-class AuthorizeService<T extends AuthorizeServiceOptions = AuthorizeServiceOptions> {
+class AuthorizeService {
 
     private service: Express;
     private server: Express | https.Server;
 
-    constructor(options: T) {
+    constructor(options?: unknown) {
         this.service = express();
         this.server = this.createServer();
     }
 
     private createServer(): Express | https.Server {
-        
+
         // TODO: set default https options here
         const options: https.ServerOptions = {};
 
-        return (config.get('env') === "production") ? https.createServer(options, this.service) : this.service
+        return (config.get('env') === "production") ? https.createServer(options, this.service) : this.service;
     }
 
-    public setup(): void {
+    public setup(): AuthorizeService {
         configureDefaults(this.service);
         applyMiddlewares(this.service);
         setRoutes(this.service);
         setErrorHandlers(this.service);
+
+        return this;
     }
 
     public async launch(): Promise<void> {
@@ -49,5 +47,8 @@ class AuthorizeService<T extends AuthorizeServiceOptions = AuthorizeServiceOptio
         });
     }
 }
+
+// CHECK: for testing purposes... not sure how to do this better atm;
+new AuthorizeService().setup().launch();
 
 export default AuthorizeService;
